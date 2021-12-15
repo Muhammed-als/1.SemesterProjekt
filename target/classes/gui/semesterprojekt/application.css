@@ -1,0 +1,37 @@
+.label{
+    -fx-font-size: 20;
+    -fx-font-family: "Lucida Console";
+    -fx-text-fill: "black";
+    -fx-alignment: center;
+}
+#titleLabel{
+    -fx-font-size: 50;
+}
+#informationText{
+    -fx-font-size: 15;
+    -fx-font-family: "Lucida Console";
+    -fx-alignment: center;
+}
+#subTitleLabel{
+    -fx-font-size: 25;
+    -fx-font-family: "Lucida Console";
+    -fx-alignment: center;
+}
+#informationText1{
+    -fx-font-size: 15;
+    -fx-font-family: "Lucida Console";
+    -fx-alignment: center;
+}
+#subTitleLabel1{
+    -fx-font-size: 25;
+    -fx-font-family: "Lucida Console";
+    -fx-alignment: center;
+}
+.button{
+    -fx-border-color: black;
+    -fx-border-width: 3;
+}
+.text-area{
+    -fx-border-color: black;
+    -fx-border-width: 1.5;
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.semesterprojekt.Rooms">
+   <children>
+      <Button layoutX="278.0" layoutY="361.0" mnemonicParsing="false" text="Drop" />
+      <ListView fx:id="inventory" layoutX="201.0" prefHeight="354.0" prefWidth="200.0" />
+      <TextArea fx:id="textfxml" layoutX="401.0" layoutY="37.0" prefHeight="200.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>
