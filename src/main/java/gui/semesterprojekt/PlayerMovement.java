@@ -21,7 +21,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 
-public class PlayerMovement extends  Application{
+public class PlayerMovement {
 
     private final int maxX = 650;
     private final int minX = 10;
@@ -68,15 +68,15 @@ public class PlayerMovement extends  Application{
         return maxX;
     }
 
-    public int getMinY(){
+    public int getMinY() {
         return minY;
     }
 
-    public int getMaxY(){
+    public int getMaxY() {
         return maxY;
     }
 
-    public void runAnimImages( ImageView[] images){
+    public void runAnimImages(ImageView[] images) {
 
         for (ImageView image : images) {
 
@@ -85,16 +85,14 @@ public class PlayerMovement extends  Application{
             image.relocate(imageView.getLayoutX(), imageView.getLayoutY());
         }
 
-        EventHandler<ActionEvent> eventEventHandler = e-> {
+        EventHandler<ActionEvent> eventEventHandler = e -> {
 
-            if(imagesIndex < 1){
+            if (imagesIndex < 1) {
                 pane.getChildren().clear();
                 imagesIndex++;
                 pane.getChildren().add(images[imagesIndex]);
 
-            }
-
-            else if (imagesIndex ==1){
+            } else if (imagesIndex == 1) {
                 imagesIndex = 0;
                 pane.getChildren().clear();
                 pane.getChildren().add(images[imagesIndex]);
@@ -118,14 +116,14 @@ public class PlayerMovement extends  Application{
     public Scene move() {
 
 
-        playerImages.add(0,new Image(new File("back.png").toURI().toString()));
-        playerImages.add(1,new Image(new File("forward.png").toURI().toString()));
-        playerImages.add(2,new Image(new File("left.png").toURI().toString()));
-        playerImages.add(3,new Image(new File("right.png").toURI().toString()));
+        playerImages.add(0, new Image(new File("back.png").toURI().toString()));
+        playerImages.add(1, new Image(new File("forward.png").toURI().toString()));
+        playerImages.add(2, new Image(new File("left.png").toURI().toString()));
+        playerImages.add(3, new Image(new File("right.png").toURI().toString()));
 
 
         imageView.setImage(playerImages.get(0));
-        imageView.relocate(100,400);
+        imageView.relocate(100, 400);
 
         //Setting the position of the image
         imageView.setLayoutX(50);
@@ -139,14 +137,13 @@ public class PlayerMovement extends  Application{
         imageView.setPreserveRatio(true);
 
 
+        root.getChildren().addAll(rooms.switchTob5(), imageView);
 
-        root.getChildren().addAll(rooms.switchTob5(),imageView);
-
-        scene = new Scene(root,700,850);
+        scene = new Scene(root, 700, 850);
 
         window = new Stage();
 
-        if(!playerIsMoving ) {
+        if (!playerIsMoving) {
             TranslateTransition translate = new TranslateTransition();
             translate.setNode(imageView);
             translate.setDuration(Duration.millis(500));
@@ -191,7 +188,6 @@ public class PlayerMovement extends  Application{
         pane.setVisible(false);
 
 
-
         scene.setOnKeyPressed(keyEvent -> {
 
 
@@ -203,77 +199,64 @@ public class PlayerMovement extends  Application{
                 System.out.println("Hallo");
 
             }
-            if(!rooms.isGameIsPaused()){
-                if(keyEvent.getCode().equals(KeyCode.W)){
+            if (!rooms.isGameIsPaused()) {
+                if (keyEvent.getCode().equals(KeyCode.W)) {
                     pane.setVisible(true);
 
                     imageView.setVisible(false);
 
 
-                    imageView.relocate(imageView.getLayoutX(),imageView.getLayoutY()-20);
+                    imageView.relocate(imageView.getLayoutX(), imageView.getLayoutY() - 20);
 
 
                     runAnimImages(runForwardAnim);
 
 
-                }
-
-
-                else if(keyEvent.getCode().equals(KeyCode.S)){
+                } else if (keyEvent.getCode().equals(KeyCode.S)) {
                     //imageView.setImage(playerImages.get(0));
 
                     pane.setVisible(true);
 
                     imageView.setVisible(false);
 
-                    imageView.relocate(imageView.getLayoutX(),imageView.getLayoutY()+20);
+                    imageView.relocate(imageView.getLayoutX(), imageView.getLayoutY() + 20);
 
 
                     runAnimImages(runBackwardAnim);
 
-                }
-
-                else if(keyEvent.getCode().equals(KeyCode.A)){
+                } else if (keyEvent.getCode().equals(KeyCode.A)) {
 
                     pane.setVisible(true);
 
                     imageView.setVisible(false);
 
-                    imageView.relocate(imageView.getLayoutX()-20,imageView.getLayoutY());
+                    imageView.relocate(imageView.getLayoutX() - 20, imageView.getLayoutY());
                     //imageView.setImage(playerImages.get(2));
 
 
-
                     runAnimImages(runLeftAnim);
-                }
-
-                else if(keyEvent.getCode().equals(KeyCode.D)){
+                } else if (keyEvent.getCode().equals(KeyCode.D)) {
 
                     pane.setVisible(true);
 
                     imageView.setVisible(false);
-                    imageView.relocate(imageView.getLayoutX()+20,imageView.getLayoutY());
+                    imageView.relocate(imageView.getLayoutX() + 20, imageView.getLayoutY());
 
-                   runAnimImages(runRightAnim);
+                    runAnimImages(runRightAnim);
 
 
-
-                }
-
-                else if(keyEvent.getCode().equals(KeyCode.E)){
+                } else if (keyEvent.getCode().equals(KeyCode.E)) {
                     rooms.pickUpTrash(imageView);
 
                 }
             }
 
-            if(keyEvent.getCode().equals(KeyCode.P)){
-                if(!rooms.menuForRooms().isVisible()){
+            if (keyEvent.getCode().equals(KeyCode.P)) {
+                if (!rooms.menuForRooms().isVisible()) {
                     rooms.menuForRooms().setVisible(true);
                     rooms.setGameIsPaused(true);
 
-                }
-
-                else{
+                } else {
                     rooms.menuForRooms().setVisible(false);
                     rooms.setGameIsPaused(false);
                 }
@@ -287,9 +270,9 @@ public class PlayerMovement extends  Application{
 
 
         root.getChildren().addAll(pane);
-        scene.setOnKeyReleased(e ->{
+        scene.setOnKeyReleased(e -> {
 
-            if(!rooms.isGameIsPaused()) {
+            if (!rooms.isGameIsPaused()) {
 
 
                 if (e.getCode().equals(KeyCode.W)) {
@@ -327,18 +310,14 @@ public class PlayerMovement extends  Application{
     }
 
 
-    public void collisionWater(){
+    public void collisionWater() {
 
 
-
-
-        if(rooms.game.getCurrentRoom().equals(rooms.game.b1)||rooms.game.getCurrentRoom().equals(rooms.game.b2)||rooms.game.getCurrentRoom().equals(rooms.game.b3)){
+        if (rooms.game.getCurrentRoom().equals(rooms.game.b1) || rooms.game.getCurrentRoom().equals(rooms.game.b2) || rooms.game.getCurrentRoom().equals(rooms.game.b3)) {
             minY = 60;
 
 
-        }
-
-        else{
+        } else {
             minY = 0;
 
         }
@@ -346,38 +325,32 @@ public class PlayerMovement extends  Application{
 
     }
 
-    public void collisionEarth(){
+    public void collisionEarth() {
 
 
-
-
-        if(rooms.game.getCurrentRoom().equals(rooms.game.b7)||rooms.game.getCurrentRoom().equals(rooms.game.b8)||rooms.game.getCurrentRoom().equals(rooms.game.b9)){
+        if (rooms.game.getCurrentRoom().equals(rooms.game.b7) || rooms.game.getCurrentRoom().equals(rooms.game.b8) || rooms.game.getCurrentRoom().equals(rooms.game.b9)) {
             maxY = 700;
 
-        }
-
-        else {
+        } else {
             maxY = 830;
         }
 
 
     }
 
-    public void changeRooms(){
+    public void changeRooms() {
 
 
         collisionWater();
         collisionEarth();
 
 
-
-
         // hvis man går ned
-        if(imageView.getLayoutY() > maxY){
+        if (imageView.getLayoutY() > maxY) {
             imageView.setLayoutY(minY);
 
             // hvis man er i b1
-            if(goSouth  && goEast && !goWest && !goNorth){
+            if (goSouth && goEast && !goWest && !goNorth) {
 
                 root.getChildren().clear();
                 root.getChildren().addAll(rooms.switchTob4(), imageView, pane);
@@ -387,67 +360,64 @@ public class PlayerMovement extends  Application{
             }
 
             // hvis man er i b2
-            else if(goWest  &&  goEast && goSouth && !goNorth ){
+            else if (goWest && goEast && goSouth && !goNorth) {
 
                 root.getChildren().clear();
-                root.getChildren().addAll(rooms.switchTob5(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob5(), imageView, pane);
 
                 goNorth = true;
             }
 
             // hvis man er i b3
-            else if(goWest  &&  goSouth && !goEast && !goNorth ){
+            else if (goWest && goSouth && !goEast && !goNorth) {
 
                 root.getChildren().clear();
-                root.getChildren().addAll(rooms.switchTob6(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob6(), imageView, pane);
                 goNorth = true;
             }
 
             // hvis man er i b4
-            else if(goSouth  &&  goNorth && goEast && !goWest ){
+            else if (goSouth && goNorth && goEast && !goWest) {
                 root.getChildren().clear();
-                root.getChildren().addAll(rooms.switchTob7(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob7(), imageView, pane);
                 goSouth = false;
             }
 
             // hvis man er i b5
-            else if(goNorth && goSouth && goWest && goEast){
+            else if (goNorth && goSouth && goWest && goEast) {
                 root.getChildren().clear();
-                root.getChildren().addAll(rooms.switchTob8(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob8(), imageView, pane);
                 goSouth = false;
             }
 
             // hvis man er i b6
-            else if(goNorth && goSouth && goWest && !goEast){
+            else if (goNorth && goSouth && goWest && !goEast) {
                 root.getChildren().clear();
 
-                root.getChildren().addAll(rooms.switchTob9(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob9(), imageView, pane);
                 goSouth = false;
 
 
             }
 
             // hvis man er i b7
-            else if(goNorth  && goEast && !goWest && !goSouth){
+            else if (goNorth && goEast && !goWest && !goSouth) {
                 imageView.setLayoutY(maxY);
-
 
 
             }
 
 
-
             // hvis man er i b8
-            else if(goNorth && goWest && goEast && !goSouth){
+            else if (goNorth && goWest && goEast && !goSouth) {
 
                 imageView.setLayoutY(maxY);
-
 
 
             }
 
             // hvis man er i b9
-            else if(goNorth && goWest && !goEast && !goSouth){
+            else if (goNorth && goWest && !goEast && !goSouth) {
                 imageView.setLayoutY(maxY);
 
 
@@ -456,161 +426,155 @@ public class PlayerMovement extends  Application{
         }
 
         // hvis man går op
-        else if(imageView.getLayoutY() < minY){
+        else if (imageView.getLayoutY() < minY) {
 
 
             imageView.setLayoutY(maxY);
 
             // hvis man er i b1
-            if(goSouth  && goEast && !goWest && !goNorth){
+            if (goSouth && goEast && !goWest && !goNorth) {
                 imageView.setLayoutY(minY);
 
             }
 
             // hvis man er i b2
-            else if(goWest  &&  goEast && goSouth && !goNorth ){
+            else if (goWest && goEast && goSouth && !goNorth) {
                 imageView.setLayoutY(minY);
             }
 
             // hvis man er i b3
-            else if(goWest  &&  goSouth && !goEast && !goNorth ){
+            else if (goWest && goSouth && !goEast && !goNorth) {
                 imageView.setLayoutY(minY);
             }
 
             // hvis man er i b4
-            else if(goSouth  &&  goNorth && goEast && !goWest ){
+            else if (goSouth && goNorth && goEast && !goWest) {
                 root.getChildren().clear();
-                root.getChildren().addAll(rooms.switchTob1(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob1(), imageView, pane);
                 goNorth = false;
 
             }
 
             // hvis man er i b5
-            else if(goNorth && goSouth && goWest && goEast){
+            else if (goNorth && goSouth && goWest && goEast) {
                 root.getChildren().clear();
-                root.getChildren().addAll(rooms.switchTob2(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob2(), imageView, pane);
                 goNorth = false;
             }
 
             // hvis man er i b6
-            else if(goNorth && goSouth && goWest && !goEast){
+            else if (goNorth && goSouth && goWest && !goEast) {
                 root.getChildren().clear();
 
-                root.getChildren().addAll(rooms.switchTob3(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob3(), imageView, pane);
                 goNorth = false;
-
 
 
             }
 
             // hvis man er i b7
-            else if(goNorth  && goEast && !goWest && !goSouth){
+            else if (goNorth && goEast && !goWest && !goSouth) {
 
                 root.getChildren().clear();
 
-                root.getChildren().addAll(rooms.switchTob4(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob4(), imageView, pane);
                 goWest = false;
                 goSouth = true;
 
             }
 
 
-
             // hvis man er i b8
-            else if(goNorth && goWest && goEast && !goSouth){
+            else if (goNorth && goWest && goEast && !goSouth) {
                 root.getChildren().clear();
 
-                root.getChildren().addAll(rooms.switchTob5(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob5(), imageView, pane);
                 goSouth = true;
 
             }
 
             // hvis man er i b9
-            else if(goNorth && goWest && !goEast && !goSouth){
+            else if (goNorth && goWest && !goEast && !goSouth) {
                 root.getChildren().clear();
 
-                root.getChildren().addAll(rooms.switchTob6(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob6(), imageView, pane);
                 goSouth = true;
 
             }
-
-
 
 
         }
 
         // hvis man går til venstre
-        else if (imageView.getLayoutX() < minX){
+        else if (imageView.getLayoutX() < minX) {
             imageView.setLayoutX(maxX);
 
 
             // hvis man er i b1
-            if(goSouth  && goEast && !goWest && !goNorth){
+            if (goSouth && goEast && !goWest && !goNorth) {
                 imageView.setLayoutX(minX);
 
             }
 
             // hvis man er i b2
-            else if(goWest  &&  goEast && goSouth && !goNorth ){
+            else if (goWest && goEast && goSouth && !goNorth) {
                 root.getChildren().clear();
-                root.getChildren().addAll(rooms.switchTob1(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob1(), imageView, pane);
                 goWest = false;
             }
 
             // hvis man er i b3
-            else if(goWest  &&  goSouth && !goEast && !goNorth ){
+            else if (goWest && goSouth && !goEast && !goNorth) {
                 root.getChildren().clear();
-                root.getChildren().addAll(rooms.switchTob2(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob2(), imageView, pane);
                 goEast = true;
             }
 
             // hvis man er i b4
-            else if(goSouth  &&  goNorth && goEast && !goWest ){
+            else if (goSouth && goNorth && goEast && !goWest) {
                 imageView.setLayoutX(minX);
 
             }
 
             // hvis man er i b5
-            else if(goNorth && goSouth && goWest && goEast){
+            else if (goNorth && goSouth && goWest && goEast) {
                 root.getChildren().clear();
-                root.getChildren().addAll(rooms.switchTob4(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob4(), imageView, pane);
                 goWest = false;
             }
 
             // hvis man er i b6
-            else if(goNorth && goSouth && goWest && !goEast){
+            else if (goNorth && goSouth && goWest && !goEast) {
                 root.getChildren().clear();
 
-                root.getChildren().addAll(rooms.switchTob5(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob5(), imageView, pane);
                 goEast = true;
-
 
 
             }
 
             // hvis man er i b7
-            else if(goNorth  && goEast && !goWest && !goSouth){
+            else if (goNorth && goEast && !goWest && !goSouth) {
 
                 imageView.setLayoutX(minX);
 
             }
 
 
-
             // hvis man er i b8
-            else if(goNorth && goWest && goEast && !goSouth){
+            else if (goNorth && goWest && goEast && !goSouth) {
                 root.getChildren().clear();
 
-                root.getChildren().addAll(rooms.switchTob7(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob7(), imageView, pane);
                 goWest = false;
 
             }
 
             // hvis man er i b9
-            else if(goNorth && goWest && !goEast && !goSouth){
+            else if (goNorth && goWest && !goEast && !goSouth) {
                 root.getChildren().clear();
 
-                root.getChildren().addAll(rooms.switchTob8(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob8(), imageView, pane);
                 goEast = true;
 
             }
@@ -619,92 +583,78 @@ public class PlayerMovement extends  Application{
 
         // hvis man går til højre
 
-        else if(imageView.getLayoutX() > maxX){
+        else if (imageView.getLayoutX() > maxX) {
 
             imageView.setLayoutX(minX);
 
             // hvis man er i b1
-            if(goSouth  && goEast && !goWest && !goNorth){
+            if (goSouth && goEast && !goWest && !goNorth) {
                 root.getChildren().clear();
-                root.getChildren().addAll(rooms.switchTob2(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob2(), imageView, pane);
                 goWest = true;
 
             }
 
             // hvis man er i b2
-            else if(goWest  &&  goEast && goSouth && !goNorth ){
+            else if (goWest && goEast && goSouth && !goNorth) {
                 root.getChildren().clear();
-                root.getChildren().addAll(rooms.switchTob3(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob3(), imageView, pane);
                 goEast = false;
             }
 
             // hvis man er i b3
-            else if(goWest  &&  goSouth && !goEast && !goNorth ){
+            else if (goWest && goSouth && !goEast && !goNorth) {
                 imageView.setLayoutX(maxX);
             }
 
             // hvis man er i b4
-            else if(goSouth  &&  goNorth && goEast && !goWest ){
+            else if (goSouth && goNorth && goEast && !goWest) {
                 root.getChildren().clear();
-                root.getChildren().addAll(rooms.switchTob5(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob5(), imageView, pane);
                 goWest = true;
 
             }
 
             // hvis man er i b5
-            else if(goNorth && goSouth && goWest && goEast){
+            else if (goNorth && goSouth && goWest && goEast) {
                 root.getChildren().clear();
-                root.getChildren().addAll(rooms.switchTob6(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob6(), imageView, pane);
                 goEast = false;
             }
 
             // hvis man er i b6
-            else if(goNorth && goSouth && goWest && !goEast){
+            else if (goNorth && goSouth && goWest && !goEast) {
                 imageView.setLayoutX(maxX);
-
 
 
             }
 
             // hvis man er i b7
-            else if(goNorth  && goEast && !goWest && !goSouth){
+            else if (goNorth && goEast && !goWest && !goSouth) {
 
                 root.getChildren().clear();
-                root.getChildren().addAll(rooms.switchTob8(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob8(), imageView, pane);
                 goWest = true;
 
             }
 
 
-
             // hvis man er i b8
-            else if(goNorth && goWest && goEast && !goSouth){
+            else if (goNorth && goWest && goEast && !goSouth) {
                 root.getChildren().clear();
 
-                root.getChildren().addAll(rooms.switchTob9(),imageView, pane);
+                root.getChildren().addAll(rooms.switchTob9(), imageView, pane);
                 goEast = false;
 
             }
 
             // hvis man er i b9
-            else if(goNorth && goWest && !goEast && !goSouth){
+            else if (goNorth && goWest && !goEast && !goSouth) {
                 imageView.setLayoutX(maxX);
 
             }
         }
 
-
-
     }
 
-
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        move();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
