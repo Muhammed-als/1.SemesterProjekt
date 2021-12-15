@@ -3,7 +3,6 @@ cig
 straw
 shoe
 bottle
-bag
-working
+
 
 
